@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwykxq1kxb2ye"]
+
+[ext_resource type="Texture2D" uid="uid://cqmbducwiwt1k" path="res://sprites/shrine.png" id="1_bonhy"]
+[ext_resource type="Script" path="res://Shrine.gd" id="1_tkkqc"]
+[ext_resource type="Texture2D" uid="uid://bluyfafiunpp4" path="res://sprites/lightMask.png" id="2_8fy48"]
+[ext_resource type="AudioStream" uid="uid://ci874j5m5qycc" path="res://Sounds/shrineactivate.ogg" id="4_3vug3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ufmog"]
+radius = 60.0
+
+[node name="Shrine" type="Node2D"]
+script = ExtResource("1_tkkqc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -19)
+texture = ExtResource("1_bonhy")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -34)
+color = Color(0.39741, 0.920398, 0.68396, 1)
+texture = ExtResource("2_8fy48")
+texture_scale = 2.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-29, 13, -29, 8, -16, -7, 16, -7, 29, 8, 29, 13)
+
+[node name="AreaRegen" type="Area2D" parent="."]
+position = Vector2(0, -34)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaRegen"]
+position = Vector2(0, 19)
+shape = SubResource("CircleShape2D_ufmog")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3vug3")
+
+[connection signal="area_entered" from="AreaRegen" to="." method="_on_area_regen_area_entered"]

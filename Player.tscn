@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://d2g3hkep5g6gm"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_k68uq"]
+[ext_resource type="Texture2D" uid="uid://dwwh6g7hw1k1r" path="res://sprites/duckSpriteSheet.png" id="2_s5oei"]
+[ext_resource type="Texture2D" uid="uid://bluyfafiunpp4" path="res://sprites/lightMask.png" id="3_bkkeh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mw1xp"]
+size = Vector2(18, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30ntm"]
+atlas = ExtResource("2_s5oei")
+region = Rect2(0, 0, 38, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6d1kp"]
+atlas = ExtResource("2_s5oei")
+region = Rect2(38, 0, 38, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqmgj"]
+atlas = ExtResource("2_s5oei")
+region = Rect2(76, 0, 38, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bm22j"]
+atlas = ExtResource("2_s5oei")
+region = Rect2(114, 0, 38, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_55dtj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30ntm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6d1kp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rqmgj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bm22j")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_as0ch"]
+size = Vector2(18, 9)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_k68uq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_mw1xp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -14)
+sprite_frames = SubResource("SpriteFrames_55dtj")
+speed_scale = 1.5
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -13)
+blend_mode = 2
+shadow_enabled = true
+shadow_color = Color(3.30899e-08, 0, 0.0774627, 0)
+texture = ExtResource("3_bkkeh")
+texture_scale = 3.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -14)
+limit_left = 0
+limit_top = 0
+limit_right = 2048
+limit_bottom = 2048
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_as0ch")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

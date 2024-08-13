@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://cghe5gnb3g7x8"]
+
+[ext_resource type="Script" path="res://Classes/Tree.gd" id="1_fnvfl"]
+[ext_resource type="Shader" path="res://Shaders/ShadowFix.gdshader" id="2_e5jmv"]
+[ext_resource type="Texture2D" uid="uid://cqs5bphj4ewg7" path="res://sprites/pinetree.png" id="3_x7mbp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixumy"]
+shader = ExtResource("2_e5jmv")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3rlu"]
+size = Vector2(117, 51)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pgna"]
+size = Vector2(69, 123.5)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_shb63"]
+closed = false
+polygon = PackedVector2Array(-23, 3, -11, 8, 6, 8, 22, 4)
+
+[node name="Tree1" type="Node2D"]
+script = ExtResource("1_fnvfl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 3
+texture_filter = 1
+material = SubResource("ShaderMaterial_ixumy")
+position = Vector2(0, -86)
+texture = ExtResource("3_x7mbp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-68, 0, -29, -10, 32, -10, 65, 1, 7, 13, -12, 12, -33, 8)
+
+[node name="AreaHide" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHide"]
+position = Vector2(-1.5, -31.5)
+shape = SubResource("RectangleShape2D_o3rlu")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="AreaHide"]
+position = Vector2(0.5, -118.25)
+shape = SubResource("RectangleShape2D_4pgna")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+z_index = -1
+occluder = SubResource("OccluderPolygon2D_shb63")

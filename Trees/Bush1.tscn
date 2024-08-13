@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjkprghakqfpy"]
+
+[ext_resource type="Script" path="res://Classes/Tree.gd" id="1_sb31s"]
+[ext_resource type="Shader" path="res://Shaders/ShadowFix.gdshader" id="2_x61ri"]
+[ext_resource type="Texture2D" uid="uid://cbhst2sq2rqqp" path="res://sprites/bushnaked.png" id="3_0kvxo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixumy"]
+shader = ExtResource("2_x61ri")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3rlu"]
+size = Vector2(22, 33.5)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_shb63"]
+closed = false
+polygon = PackedVector2Array(-23, 3, -11, 8, 6, 8, 22, 4)
+
+[node name="Tree1" type="Node2D"]
+script = ExtResource("1_sb31s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 3
+texture_filter = 1
+material = SubResource("ShaderMaterial_ixumy")
+position = Vector2(1, -31)
+texture = ExtResource("3_0kvxo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-5, -5, 3, -4, 6, 0, -10, 0)
+
+[node name="AreaHide" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHide"]
+position = Vector2(-2, -17.25)
+shape = SubResource("RectangleShape2D_o3rlu")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+z_index = -1
+occluder = SubResource("OccluderPolygon2D_shb63")
