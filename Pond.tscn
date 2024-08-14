@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://fo6pq87ue0c6"]
+
+[ext_resource type="Shader" path="res://Shaders/Water.gdshader" id="1_mrxhy"]
+[ext_resource type="Texture2D" uid="uid://brxmt5p2la2sm" path="res://sprites/pond_water.png" id="2_genal"]
+[ext_resource type="Texture2D" uid="uid://c4wm42gtfces6" path="res://sprites/pond_edge.png" id="3_bttta"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6nh00"]
+resource_local_to_scene = true
+shader = ExtResource("1_mrxhy")
+shader_parameter/uv_scale = 1.0
+shader_parameter/color_alpha = 1.0
+
+[node name="Pond" type="Node2D"]
+
+[node name="Water" type="Sprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_6nh00")
+texture = ExtResource("2_genal")
+
+[node name="Grass" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_bttta")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-73, -1, -67, -24, -46, -37, -30, -45, -3, -53, 20, -49, 60, -27, 68, -20, 72, 4, 59, 43, 24, 55, -48, 42, -69, 24)

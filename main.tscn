@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbgqxggxmi16g"]
+[gd_scene load_steps=14 format=3 uid="uid://dbgqxggxmi16g"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_1tdoc"]
 [ext_resource type="Texture2D" uid="uid://be0h5d8h0k3dp" path="res://sprites/roughmap2.png" id="2_fijix"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bjkprghakqfpy" path="res://Trees/Bush1.tscn" id="10_00yv0"]
 [ext_resource type="PackedScene" uid="uid://w5b76abuf51j" path="res://Trees/Bush2.tscn" id="11_3r8wn"]
 [ext_resource type="PackedScene" uid="uid://bmh7hpqi67u2a" path="res://Trees/Bush3.tscn" id="12_dh0d4"]
+[ext_resource type="PackedScene" uid="uid://fo6pq87ue0c6" path="res://Pond.tscn" id="13_nhn20"]
 
 [node name="Main" type="Node2D"]
 light_mask = 3
@@ -463,3 +464,6 @@ position = Vector2(1644, 749)
 
 [node name="Tree130" parent="ForestStuff" instance=ExtResource("11_3r8wn")]
 position = Vector2(1756, 941)
+
+[node name="Pond" parent="ForestStuff" instance=ExtResource("13_nhn20")]
+position = Vector2(241, 1520)
