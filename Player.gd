@@ -42,6 +42,8 @@ func _process(delta: float):
 		# Nope, do nothing
 		if $AnimatedSprite2D.animation != "default":
 			$AnimatedSprite2D.animation = "default"
+			$AnimatedSprite2D2.animation = "default"
+			$AnimatedSprite2D3.animation = "default"
 		return
 	# We moved, normalize the vector
 	motion = motion.normalized()
@@ -54,12 +56,18 @@ func _process(delta: float):
 	# Animate our sprite
 	if $AnimatedSprite2D.animation != "walk":
 		$AnimatedSprite2D.play("walk")
+		$AnimatedSprite2D2.play("walk")
+		$AnimatedSprite2D3.play("walk")
 	# Which direction do we need to face?
 	var ang: float = rad_to_deg(motion.angle())
 	if ang > 90 || ang < -90:
 		$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D2.flip_h = true
+		$AnimatedSprite2D3.flip_h = true
 	else:
 		$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D2.flip_h = false
+		$AnimatedSprite2D3.flip_h = false
 
 # Adjust light variables
 func _adjustLight():
@@ -70,6 +78,8 @@ func _adjustLight():
 	$PointLight2D.texture_scale = lerp(2.0, 4.0, lightLevel)
 	# Also adjust the saturation of our duck as it gets darker
 	$AnimatedSprite2D.modulate = lerp(Color(0.5, 0.5, 0.5, 1), Color(1, 1, 1, 1), lightLevel)
+	$AnimatedSprite2D2.modulate = $AnimatedSprite2D.modulate
+	$AnimatedSprite2D3.modulate = $AnimatedSprite2D.modulate
 	# Kinda random to throw this in here too, but do we need to change the music?
 	if lightLevel < 0.25:
 		# We should be playing Dark theme, are we playing it already?

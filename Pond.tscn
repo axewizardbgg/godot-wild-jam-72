@@ -13,7 +13,6 @@ shader_parameter/color_alpha = 1.0
 [node name="Pond" type="Node2D"]
 
 [node name="Water" type="Sprite2D" parent="."]
-texture_filter = 1
 material = SubResource("ShaderMaterial_6nh00")
 texture = ExtResource("2_genal")
 
