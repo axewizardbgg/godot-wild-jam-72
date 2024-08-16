@@ -4,6 +4,8 @@ signal lightBugDone
 
 # Should be set before _ready is called
 var player: CharacterBody2D
+# Let's make this scene usable in the Title Screen too
+@export var forTitleScreen: bool = false
 
 # We'll randomize the color for variety
 var colors: Array = [
@@ -31,11 +33,13 @@ func _ready():
 	fadeTween.tween_property($PointLight2D, "energy", 1, 0.5).set_ease(Tween.EASE_IN)
 	# Connect the signal to move it once its faded in
 	fadeTween.finished.connect(_setMovement)
-	
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float):
+	# Are we spawned on the title screen?
+	if forTitleScreen:
+		# Yes, do nothing
+		return
 	# Are we too far from the player?
 	if is_instance_valid(player):
 		if global_position.distance_to(player.global_position) > 150:
@@ -57,11 +61,21 @@ func _setMovement():
 	count += 1
 	# Pick a random point nearby
 	var dest: Vector2 = Vector2(randf_range(-50, 50), randf_range(-50, 50))
+	# Handle special case if we're for the Title Screen
+	if forTitleScreen:
+		dest = Vector2(randf_range(0, 320), randf_range(0, 180))
 	# Rotate ourselves to face where we are moving to
 	$Sprite2D.global_rotation = ((global_position+dest) - global_position).angle()
+	# Handle special case if we're for the Title Screen
+	if forTitleScreen:
+		$Sprite2D.global_rotation = (dest - global_position).angle()
 	# We'll need a tween to have it move around the map
 	var moveTween: Tween = get_tree().create_tween()
-	moveTween.tween_property(self, "global_position", global_position + dest, randf_range(4,10)).set_trans(Tween.TRANS_BOUNCE)
+	# Are we for the TitleScreen?
+	if forTitleScreen:
+		moveTween.tween_property(self, "global_position", dest, randf_range(6,12)).set_trans(Tween.TRANS_BOUNCE)
+	else:
+		moveTween.tween_property(self, "global_position", global_position + dest, randf_range(4,10)).set_trans(Tween.TRANS_BOUNCE)
 	# Connect signal once we're done
 	moveTween.finished.connect(_setMovement)
 	

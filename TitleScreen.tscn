@@ -1,0 +1,193 @@
+[gd_scene load_steps=21 format=3 uid="uid://dk10we8y5w2a5"]
+
+[ext_resource type="Script" path="res://TitleScreen.gd" id="1_6splb"]
+[ext_resource type="Texture2D" uid="uid://be0h5d8h0k3dp" path="res://sprites/roughmap2.png" id="1_nx3lo"]
+[ext_resource type="PackedScene" uid="uid://biuewvfhlmmjj" path="res://Fog.tscn" id="2_si6q7"]
+[ext_resource type="Texture2D" uid="uid://cqmbducwiwt1k" path="res://sprites/shrine.png" id="3_4r04l"]
+[ext_resource type="Texture2D" uid="uid://bluyfafiunpp4" path="res://sprites/lightMask.png" id="4_su012"]
+[ext_resource type="PackedScene" uid="uid://babl0plpus6kk" path="res://Trees/Tree1.tscn" id="5_2c3uo"]
+[ext_resource type="PackedScene" uid="uid://bjkprghakqfpy" path="res://Trees/Bush1.tscn" id="6_1m4kt"]
+[ext_resource type="PackedScene" uid="uid://w5b76abuf51j" path="res://Trees/Bush2.tscn" id="7_vwkv2"]
+[ext_resource type="PackedScene" uid="uid://bmh7hpqi67u2a" path="res://Trees/Bush3.tscn" id="8_fna0r"]
+[ext_resource type="PackedScene" uid="uid://cr13qdqwg6b4r" path="res://Trees/Tree3.tscn" id="9_4f1a2"]
+[ext_resource type="Texture2D" uid="uid://dwwh6g7hw1k1r" path="res://sprites/duckSpriteSheet.png" id="10_rxdkc"]
+[ext_resource type="Texture2D" uid="uid://dfvxhyvur4ki7" path="res://sprites/racoon3.png" id="11_hce3k"]
+[ext_resource type="Texture2D" uid="uid://bhafb8unuy51r" path="res://sprites/smallLightMask.png" id="12_81sru"]
+[ext_resource type="PackedScene" uid="uid://fo6pq87ue0c6" path="res://Pond.tscn" id="13_0rqy6"]
+[ext_resource type="PackedScene" uid="uid://dq08osq33m2n2" path="res://LightBug.tscn" id="14_tcksi"]
+[ext_resource type="Theme" uid="uid://djff630rr7c83" path="res://UI/Themes/HUD.tres" id="15_xt583"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0g8pk"]
+atlas = ExtResource("10_rxdkc")
+region = Rect2(0, 0, 38, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s0le0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0g8pk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ggqs"]
+atlas = ExtResource("11_hce3k")
+region = Rect2(0, 0, 46, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mwum5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ggqs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_6splb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("15_xt583")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="ButtonStart" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Save the World (Start)"
+
+[node name="ButtonCredits" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Delay the Inevitable (Credits)"
+
+[node name="ButtonQuit" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Succumb to Darkness (Quit)"
+
+[node name="TestMap" type="Sprite2D" parent="."]
+light_mask = 3
+texture_filter = 1
+position = Vector2(-282, -404)
+texture = ExtResource("1_nx3lo")
+centered = false
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+process_mode = 3
+top_level = true
+light_mask = 3
+visibility_layer = 3
+texture_filter = 1
+color = Color(0, 0.0627451, 0.188235, 1)
+
+[node name="Fog" parent="." instance=ExtResource("2_si6q7")]
+
+[node name="YSortStuff" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Shrine" type="Sprite2D" parent="YSortStuff"]
+texture_filter = 1
+position = Vector2(231, 109)
+texture = ExtResource("3_4r04l")
+
+[node name="PointLight2D" type="PointLight2D" parent="YSortStuff/Shrine"]
+color = Color(0.39741, 0.920398, 0.68396, 1)
+energy = 2.0
+texture = ExtResource("4_su012")
+texture_scale = 2.0
+
+[node name="Tree1" parent="YSortStuff" instance=ExtResource("5_2c3uo")]
+position = Vector2(63, 106)
+
+[node name="Tree2" parent="YSortStuff" instance=ExtResource("6_1m4kt")]
+position = Vector2(195, 170)
+
+[node name="Tree3" parent="YSortStuff" instance=ExtResource("7_vwkv2")]
+position = Vector2(65, 175)
+
+[node name="Tree4" parent="YSortStuff" instance=ExtResource("8_fna0r")]
+position = Vector2(26, 78)
+
+[node name="Tree5" parent="YSortStuff" instance=ExtResource("9_4f1a2")]
+position = Vector2(318, 165)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="YSortStuff"]
+texture_filter = 1
+position = Vector2(168, 88)
+sprite_frames = SubResource("SpriteFrames_s0le0")
+
+[node name="PointLight2D" type="PointLight2D" parent="YSortStuff/AnimatedSprite2D"]
+position = Vector2(-2, 4)
+texture = ExtResource("4_su012")
+texture_scale = 3.0
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="YSortStuff"]
+texture_filter = 1
+position = Vector2(270, 30)
+sprite_frames = SubResource("SpriteFrames_mwum5")
+
+[node name="PointLight2D" type="PointLight2D" parent="YSortStuff/AnimatedSprite2D2"]
+position = Vector2(-16, -6)
+color = Color(1, 0.17023, 0.160277, 1)
+energy = 1.2
+texture = ExtResource("12_81sru")
+texture_scale = 2.0
+
+[node name="Pond" parent="YSortStuff" instance=ExtResource("13_0rqy6")]
+position = Vector2(174, 9)
+
+[node name="LightBug" parent="." instance=ExtResource("14_tcksi")]
+position = Vector2(239, 53)
+forTitleScreen = true
+
+[node name="LightBug2" parent="." instance=ExtResource("14_tcksi")]
+position = Vector2(105, 54)
+forTitleScreen = true
+
+[node name="LightBug3" parent="." instance=ExtResource("14_tcksi")]
+position = Vector2(274, 143)
+forTitleScreen = true
+
+[node name="LightBug4" parent="." instance=ExtResource("14_tcksi")]
+position = Vector2(26, 159)
+forTitleScreen = true
+
+[node name="LightBug5" parent="." instance=ExtResource("14_tcksi")]
+position = Vector2(152, 167)
+forTitleScreen = true
+
+[connection signal="mouse_entered" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]

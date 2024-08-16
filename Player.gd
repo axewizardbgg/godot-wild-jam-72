@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal dangerChanged(danger: bool)
 
+var hp: int = 3
 var moveSpd: float = 50 # pixels per second
 var regen: bool = false # If we're regenerating light, it goes up, otherwise it decays
 var lightLevel: float = 1 # 0 to 1, used to determine the energy of our light
@@ -15,8 +16,6 @@ var raccoons: int = 0
 func _ready():
 	# Add ourselves to the player group so other nodes can identify us
 	add_to_group("player")
-	
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
@@ -125,8 +124,6 @@ func _decay(delta: float):
 	# Ensure we don't go below 0
 	if lightLevel <= 0:
 		lightLevel = 0
-		# Also if we've run out of light, game over!
-		# TODO: Figure this out still
 	# Adjust the light
 	_adjustLight()
 

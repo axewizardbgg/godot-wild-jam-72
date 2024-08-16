@@ -30,3 +30,4 @@ motion_mirroring = Vector2(320, 180)
 material = SubResource("ShaderMaterial_jchn5")
 offset_right = 320.0
 offset_bottom = 180.0
+mouse_filter = 2

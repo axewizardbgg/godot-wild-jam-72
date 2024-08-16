@@ -149,12 +149,14 @@ sprite_frames = SubResource("SpriteFrames_55dtj")
 speed_scale = 1.5
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(0, -18)
 sprite_frames = SubResource("SpriteFrames_ae8mg")
 speed_scale = 1.5
 
 [node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(0, -18)
 sprite_frames = SubResource("SpriteFrames_d0c5a")
