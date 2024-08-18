@@ -19,8 +19,12 @@ func _process(delta):
 	pass
 
 func _hideTree(area: Area2D):
-	# Is this the player?
-	if !area.owner.is_in_group("player"):
+	# Is the thing we are colliding with still a valid instance?
+	if !is_instance_valid(area.owner):
+		# No, do nothing
+		return
+	# Is this the player or an item?
+	if !(area.owner.is_in_group("player") || area.owner.is_in_group("items")):
 		# No, do nothing
 		return
 	# Create a tween to hide the tree
@@ -28,8 +32,12 @@ func _hideTree(area: Area2D):
 	tween.tween_property($Sprite2D, "modulate", Color(1,1,1,0.5), 0.5).set_trans(Tween.TRANS_LINEAR)
 
 func _showTree(area: Area2D):
-	# Is this the player?
-	if !area.owner.is_in_group("player"):
+	# Is the thing we are colliding with still a valid instance?
+	if !is_instance_valid(area.owner):
+		# No, do nothing
+		return
+	# Is this the player or an item?
+	if !(area.owner.is_in_group("player") || area.owner.is_in_group("items")):
 		# No, do nothing
 		return
 	# Create a tween to show the tree

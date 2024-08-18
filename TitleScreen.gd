@@ -1,17 +1,17 @@
 extends Node2D
 
 # Preload our scenes that we'll need to switch to
-var gameScene: Node2D
+var introScene: Control
 var creditsScene: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Instance the main game scene behind the scenes so we can quickly switch to it
-	gameScene = preload("res://main.tscn").instantiate()
+	introScene = preload("res://UI/Intro.tscn").instantiate()
 
 func _on_button_start_pressed() -> void:
 	# Add the main scene to the tree
-	get_tree().root.add_child(gameScene)
+	get_tree().root.add_child(introScene)
 	# Destroy ourselves
 	queue_free()
 

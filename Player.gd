@@ -1,14 +1,25 @@
 extends CharacterBody2D
 
 signal dangerChanged(danger: bool)
+signal itemAcquired(item: String)
+signal playerDied
 
-var hp: int = 3
+# How many hits we can take before we die
+var hp: int = 5
+# How fast we move
 var moveSpd: float = 50 # pixels per second
-var regen: bool = false # If we're regenerating light, it goes up, otherwise it decays
+# If we're regenerating light, it goes up, otherwise it decays
+var regen: bool = false 
+# How much light we eminate
 var lightLevel: float = 1 # 0 to 1, used to determine the energy of our light
+# Maximum light
+var maxLight: float = 1 # Reduced by cursed items
+# The speed at which our light wanes
 var lightDecayRate: float = 0.02 # Per second
-var lightDecayModifier: float = 1 # Percentage, used to scale it up or down depending on items
-
+# What items we currently have
+var items: Array = []
+# Keep track of which Shrine we last encountered
+var lastShrine: Node2D
 # Keep track of how many enemies we've spawned
 var raccoons: int = 0
 
@@ -19,6 +30,20 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
+	# Do we need to quack?
+	if Input.is_action_just_released("Quack"):
+		# Pick a random quack sound
+		var quack: Array = [
+			"res://Sounds/quack1.ogg",
+			"res://Sounds/quack2.ogg",
+			"res://Sounds/quack3.ogg"
+		]
+		var pick: int = randi() % quack.size()
+		# Set the audio stream of the sound player and play sound
+		$AudioStreamPlayer.stop()
+		$AudioStreamPlayer.stream = load(quack[pick])
+		$AudioStreamPlayer.pitch_scale = randf_range(0.9, 1.2)
+		$AudioStreamPlayer.play()
 	# Handle light decay or regen
 	if regen:
 		_regen(delta)
@@ -67,6 +92,12 @@ func _process(delta: float):
 		$AnimatedSprite2D.flip_h = false
 		$AnimatedSprite2D2.flip_h = false
 		$AnimatedSprite2D3.flip_h = false
+	# Do we need to update the rotation of our last shrine arrow?
+	if !is_instance_valid(lastShrine):
+		# No, we're done
+		return
+	# Yes
+	$LastShrineArrow.rotation = (lastShrine.global_position-global_position).angle()
 
 # Adjust light variables
 func _adjustLight():
@@ -112,8 +143,8 @@ func _regen(delta: float):
 	# Should take about 3 seconds to fully recharge, that and should be noticable on screen.
 	lightLevel += 0.33 * delta
 	# Ensure we're don't go over 1 (we could, but it would be super bright)
-	if lightLevel > 1:
-		lightLevel = 1
+	if lightLevel > maxLight:
+		lightLevel = maxLight
 	# Adjust the light
 	_adjustLight()
 	
@@ -124,6 +155,12 @@ func _decay(delta: float):
 	# Ensure we don't go below 0
 	if lightLevel <= 0:
 		lightLevel = 0
+		# Do we have a lighter?
+		if items.has("lighter"):
+			# Consume the lighter to refill your light!
+			lightLevel = maxLight
+			items.erase("lighter")
+			# TODO: Sound effect for the lighter
 	# Adjust the light
 	_adjustLight()
 
@@ -131,16 +168,88 @@ func _decay(delta: float):
 func _raccoonGone():
 	raccoons -= 1
 
-# Auto-created functions from connecting signals in node inspector
+# Handling when we pick up an item
+func pickUpItem(itemName: String):
+	# Add the item to our list
+	items.append(itemName)
+	# Apply item affects (Note: Some effects aren't specified here, and are
+	# accounted for on other relevant scenes (Such as the Racoon)
+	match itemName:
+		"backpack":
+			# We have the backpack, show it on our character
+			$AnimatedSprite2D3.visible = true
+			AudioManager.playWizardSound("res://Sounds/WizardItemDiscovery.ogg")
+		"elvisWig":
+			# We picked up this damn wig lol, show it on our character
+			$AnimatedSprite2D2.visible = true
+		"boots":
+			moveSpd = 60
+			maxLight -= 0.05
+		"moonGlasses":
+			maxLight -= 0.05
+			lightDecayRate = 0.015
+		"duckTape":
+			maxLight -= 0.05
+		"helmet":
+			maxLight -= 0.05
+		"shotgun":
+			maxLight -= 0.05
+	# Finally, emit a signal that we picked up an item
+	emit_signal("itemAcquired", itemName)
 
+# Take damage!
+func takeDamage():
+	hp -= 1
+	if hp <= 0:
+		# TODO: Game over?
+		pass
+	# Update our health bar
+	$HealthBar.value = float(hp)
+	# Set healthbar to be visible, and make a tween to fade it out
+	$HealthBar.modulate.a = 1
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property($HealthBar, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.5).set_ease(Tween.EASE_IN)
+	
+
+# Auto-created functions from connecting signals in node inspector
 func _on_area_2d_area_entered(area: Area2D):
+	# Is the thing we are colliding with still a valid instance?
+	if !is_instance_valid(area.owner):
+		# No, do nothing
+		return
 	# Have we encountered a Shrine?
 	if area.owner.is_in_group("shrines"):
+		# Is this our first shrine?
+		if !is_instance_valid(lastShrine):
+			# Yes this is our first shrine, show the arrow back to it, and also
+			# display the tutorial.
+			$LastShrineArrow.visible = true
+			# TODO
+			pass
 		# Yes, we're near a shrine, regenerate our light!
 		regen = true
+		# Mark this as the last shrine we visited
+		lastShrine = area.owner
+		return
+	# Have we encountered an item?
+	if area.owner.is_in_group("items"):
+		# We have an item, do we have a backpack?
+		if !items.has("backpack"):
+			# We don't... Is this item the backpack?
+			if area.owner.itemName != "backpack":
+				# We can't pick this item up yet, do nothing
+				return
+		# Yes, add it to our list of items
+		pickUpItem(area.owner.itemName)
+		# Destroy the item
+		area.owner.queue_free()
 
 
 func _on_area_2d_area_exited(area: Area2D):
+	# Is the thing we are colliding with still a valid instance?
+	if !is_instance_valid(area.owner):
+		# No, do nothing
+		return
 	# Have we encountered a Shrine?
 	if area.owner.is_in_group("shrines"):
 		# We've left a shrine, stop regen and give in to the decay...

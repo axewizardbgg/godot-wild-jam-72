@@ -4,11 +4,19 @@ extends Node2D
 # Get some nodes we'll need to manage
 @onready var hud: Control = $CanvasUILayer/HUD
 
-# Keep track of how many shrines we've lit
-var shrinesLit: int = 0 # There are 8 shrines total
+# Keep track of how many shrines we've lit. There are 8 shrines total
+# We also do some fun stuff with the setter to play the Wizard sound
+var shrinesLit: int = 0:
+	set(value):
+		shrinesLit = value
+		if shrinesLit > 0:
+			var sndPath: String = "res://Sounds/WizardShrineActivate%s.ogg" % shrinesLit
+			AudioManager.playWizardSound(sndPath)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Play the background music
+	AudioManager.playBGM()
 	# Create some light bugs and add them to the scene around the player
 	var count: int = 0
 	while count < 5:
@@ -33,3 +41,14 @@ func _spawnLightBug():
 	bug.lightBugDone.connect(_spawnLightBug)
 	# Add a reference to the player
 	bug.player = $Player
+
+
+func _on_player_item_acquired(item: String) -> void:
+	# Prepare Item UI
+	var iUI: Control = load("res://UI/NewItem.tscn").instantiate()
+	iUI.title = Items.list[item].title
+	iUI.desc = Items.list[item].desc
+	# Add it to our UI layer
+	$CanvasUILayer.add_child(iUI)
+	# Pause the game
+	get_tree().paused = true

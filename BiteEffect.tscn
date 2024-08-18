@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://5c35861gge12"]
+
+[ext_resource type="Script" path="res://BiteEffect.gd" id="1_d1um1"]
+[ext_resource type="Texture2D" uid="uid://cydtbf8wbqift" path="res://sprites/bite_effect.png" id="2_521y7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu7w2"]
+atlas = ExtResource("2_521y7")
+region = Rect2(0, 0, 14, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd1mk"]
+atlas = ExtResource("2_521y7")
+region = Rect2(14, 0, 14, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1sthy"]
+atlas = ExtResource("2_521y7")
+region = Rect2(28, 0, 14, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ifgcb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu7w2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd1mk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1sthy")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BiteEffect" type="Node2D"]
+script = ExtResource("1_d1um1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ifgcb")
+frame_progress = 0.654483
+flip_h = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

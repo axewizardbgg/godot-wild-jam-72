@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2um1mymut0wa"]
+
+[ext_resource type="Theme" uid="uid://djff630rr7c83" path="res://UI/Themes/HUD.tres" id="1_slmbl"]
+[ext_resource type="Script" path="res://UI/NewItem.gd" id="2_mpx8q"]
+
+[node name="NewItem" type="Control"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_slmbl")
+script = ExtResource("2_mpx8q")
+
+[node name="MC" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="ColorRect" type="ColorRect" parent="MC"]
+layout_mode = 2
+color = Color(3.76021e-09, 0.09128, 0.0242053, 1)
+
+[node name="VBC" type="VBoxContainer" parent="MC"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="MC/VBC"]
+modulate = Color(0.845701, 0.856839, 0, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Item Name"
+horizontal_alignment = 1
+
+[node name="Desc" type="Label" parent="MC/VBC"]
+modulate = Color(0.847059, 0.854902, 0, 1)
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Item Description"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ButtonContinue" type="Button" parent="MC/VBC"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Continue"
+
+[connection signal="pressed" from="MC/VBC/ButtonContinue" to="." method="_on_button_continue_pressed"]

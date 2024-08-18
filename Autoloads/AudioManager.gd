@@ -16,6 +16,10 @@ func _ready():
 	_bgm1.volume_db = 0
 	_bgm2.volume_db = -80
 
+# We start playing the background music when needed
+func playBGM():
+	$BGM1.play()
+
 # Crossfades the background music
 func crossfadeBGM(theme: String) -> void:
 	# If both tracks are playing, we're calling the function in the middle of a fade.
@@ -40,3 +44,17 @@ func crossfadeBGM(theme: String) -> void:
 		_animPlayer.play("FadeToBGM2")
 	# Update our currentlyPlaying
 	currentlyPlaying = theme
+
+# We'll keep all the wizard sounds played to a single AudioStreamPlayer2D, so that
+# we don't even run into a scenario where there will be overlapping voice lines.
+func playWizardSound(sndPath: String):
+	# Stop any playing sounds first
+	$Wizard.stop()
+	# Load the specified sound into the player, and play it!
+	$Wizard.stream = load(sndPath)
+	$Wizard.play()
+
+# Sometimes we'll need to stop the wizard from talking (like if we skip the intro)
+func stopWizardSound():
+	$Wizard.stop()
+	

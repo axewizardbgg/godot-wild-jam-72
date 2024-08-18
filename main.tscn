@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dbgqxggxmi16g"]
+[gd_scene load_steps=15 format=3 uid="uid://dbgqxggxmi16g"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_1tdoc"]
 [ext_resource type="Texture2D" uid="uid://be0h5d8h0k3dp" path="res://sprites/roughmap2.png" id="2_fijix"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://biuewvfhlmmjj" path="res://Fog.tscn" id="4_aoiek"]
 [ext_resource type="PackedScene" uid="uid://babl0plpus6kk" path="res://Trees/Tree1.tscn" id="5_6rqor"]
 [ext_resource type="PackedScene" uid="uid://cwykxq1kxb2ye" path="res://Shrine.tscn" id="6_4g1tn"]
+[ext_resource type="PackedScene" uid="uid://csj0d85vxl8v8" path="res://UI/TutorialOverlay.tscn" id="6_mfhwf"]
 [ext_resource type="PackedScene" uid="uid://cghe5gnb3g7x8" path="res://Trees/Tree2.tscn" id="7_7uw2f"]
 [ext_resource type="PackedScene" uid="uid://cr13qdqwg6b4r" path="res://Trees/Tree3.tscn" id="8_w70cu"]
 [ext_resource type="PackedScene" uid="uid://dsximpcxfj7bq" path="res://UI/HUD.tscn" id="9_0cj3d"]
@@ -41,6 +42,8 @@ position = Vector2(100, 1959)
 
 [node name="HUD" parent="CanvasUILayer" instance=ExtResource("9_0cj3d")]
 
+[node name="TutorialOverlay" parent="CanvasUILayer" instance=ExtResource("6_mfhwf")]
+
 [node name="ForestStuff" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -49,27 +52,35 @@ position = Vector2(261, 1791)
 
 [node name="Shrine" parent="ForestStuff" instance=ExtResource("6_4g1tn")]
 position = Vector2(210, 1836)
+item = "backpack"
 
 [node name="Shrine2" parent="ForestStuff" instance=ExtResource("6_4g1tn")]
 position = Vector2(811, 1655)
+item = "moonGlasses"
 
 [node name="Shrine3" parent="ForestStuff" instance=ExtResource("6_4g1tn")]
 position = Vector2(1662, 1810)
+item = "duckTape"
 
 [node name="Shrine4" parent="ForestStuff" instance=ExtResource("6_4g1tn")]
 position = Vector2(1476, 1266)
+item = "helmet"
 
 [node name="Shrine5" parent="ForestStuff" instance=ExtResource("6_4g1tn")]
 position = Vector2(1083, 770)
+item = "lighter"
 
 [node name="Shrine6" parent="ForestStuff" instance=ExtResource("6_4g1tn")]
 position = Vector2(1480, 327)
+item = "elvisWig"
 
 [node name="Shrine7" parent="ForestStuff" instance=ExtResource("6_4g1tn")]
 position = Vector2(509, 521)
+item = "shotgun"
 
 [node name="Shrine8" parent="ForestStuff" instance=ExtResource("6_4g1tn")]
 position = Vector2(362, 1116)
+item = "boots"
 
 [node name="Tree3" parent="ForestStuff" instance=ExtResource("7_7uw2f")]
 position = Vector2(473, 1837)
@@ -474,3 +485,5 @@ position = Vector2(756, 487)
 [node name="Tree131" parent="ForestStuff" instance=ExtResource("5_6rqor")]
 position = Vector2(143, 1868)
 flip = true
+
+[connection signal="itemAcquired" from="Player" to="." method="_on_player_item_acquired"]

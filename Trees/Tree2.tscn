@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cghe5gnb3g7x8"]
+[gd_scene load_steps=9 format=3 uid="uid://cghe5gnb3g7x8"]
 
 [ext_resource type="Script" path="res://Classes/Tree.gd" id="1_fnvfl"]
 [ext_resource type="Shader" path="res://Shaders/ShadowFix.gdshader" id="2_e5jmv"]
@@ -11,7 +11,10 @@ shader = ExtResource("2_e5jmv")
 size = Vector2(117, 51)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4pgna"]
-size = Vector2(69, 123.5)
+size = Vector2(91, 59.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdcwf"]
+size = Vector2(63, 63)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_shb63"]
 closed = false
@@ -39,8 +42,12 @@ position = Vector2(-1.5, -31.5)
 shape = SubResource("RectangleShape2D_o3rlu")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="AreaHide"]
-position = Vector2(0.5, -118.25)
+position = Vector2(-2.5, -86.25)
 shape = SubResource("RectangleShape2D_4pgna")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="AreaHide"]
+position = Vector2(0.5, -147.5)
+shape = SubResource("RectangleShape2D_jdcwf")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 visible = false

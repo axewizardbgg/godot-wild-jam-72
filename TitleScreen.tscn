@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dk10we8y5w2a5"]
+[gd_scene load_steps=22 format=3 uid="uid://dk10we8y5w2a5"]
 
 [ext_resource type="Script" path="res://TitleScreen.gd" id="1_6splb"]
 [ext_resource type="Texture2D" uid="uid://be0h5d8h0k3dp" path="res://sprites/roughmap2.png" id="1_nx3lo"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://fo6pq87ue0c6" path="res://Pond.tscn" id="13_0rqy6"]
 [ext_resource type="PackedScene" uid="uid://dq08osq33m2n2" path="res://LightBug.tscn" id="14_tcksi"]
 [ext_resource type="Theme" uid="uid://djff630rr7c83" path="res://UI/Themes/HUD.tres" id="15_xt583"]
+[ext_resource type="AudioStream" uid="uid://be1qavaq442wf" path="res://Sounds/TitleScreen.ogg" id="17_5p0fj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0g8pk"]
 atlas = ExtResource("10_rxdkc")
@@ -96,6 +97,16 @@ text = "Delay the Inevitable (Credits)"
 texture_filter = 1
 layout_mode = 2
 text = "Succumb to Darkness (Quit)"
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 118.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 24
+text = "Abduckted"
 
 [node name="TestMap" type="Sprite2D" parent="."]
 light_mask = 3
@@ -187,6 +198,11 @@ forTitleScreen = true
 [node name="LightBug5" parent="." instance=ExtResource("14_tcksi")]
 position = Vector2(152, 167)
 forTitleScreen = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_5p0fj")
+autoplay = true
+bus = &"BGM"
 
 [connection signal="mouse_entered" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_pressed"]

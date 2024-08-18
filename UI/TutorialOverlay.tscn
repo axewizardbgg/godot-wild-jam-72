@@ -1,0 +1,205 @@
+[gd_scene load_steps=6 format=3 uid="uid://csj0d85vxl8v8"]
+
+[ext_resource type="Theme" uid="uid://djff630rr7c83" path="res://UI/Themes/HUD.tres" id="1_ven60"]
+[ext_resource type="Texture2D" uid="uid://cyth3ig3sc7g4" path="res://sprites/TutorialKey.png" id="2_40fre"]
+[ext_resource type="Script" path="res://UI/TutorialOverlay.gd" id="2_ng5tp"]
+[ext_resource type="Texture2D" uid="uid://dqt7sc7s8r8ei" path="res://sprites/TutorialArrow.png" id="3_xvkhi"]
+[ext_resource type="Texture2D" uid="uid://cl0tv8omjjf7u" path="res://sprites/TutorialSpace.png" id="4_tellv"]
+
+[node name="TutorialOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ven60")
+script = ExtResource("2_ng5tp")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 6.0
+offset_top = 162.0
+offset_right = 23.0
+offset_bottom = 176.0
+texture = ExtResource("2_40fre")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 12.0
+offset_bottom = 10.0
+text = "A"
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 25.0
+offset_top = 162.0
+offset_right = 42.0
+offset_bottom = 176.0
+texture = ExtResource("2_40fre")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="TextureRect2"]
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 12.0
+offset_bottom = 10.0
+text = "S"
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 44.0
+offset_top = 162.0
+offset_right = 61.0
+offset_bottom = 176.0
+texture = ExtResource("2_40fre")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="TextureRect3"]
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 12.0
+offset_bottom = 10.0
+text = "D"
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 23.0
+offset_top = 146.0
+offset_right = 40.0
+offset_bottom = 160.0
+texture = ExtResource("2_40fre")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="TextureRect4"]
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 12.0
+offset_bottom = 10.0
+text = "W"
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 79.0
+offset_top = 162.0
+offset_right = 96.0
+offset_bottom = 176.0
+texture = ExtResource("2_40fre")
+stretch_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect5"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 11.0
+offset_bottom = 8.0
+texture = ExtResource("3_xvkhi")
+stretch_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 98.0
+offset_top = 162.0
+offset_right = 115.0
+offset_bottom = 176.0
+texture = ExtResource("2_40fre")
+stretch_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect6"]
+offset_left = 6.0
+offset_top = 9.0
+offset_right = 12.0
+offset_bottom = 14.0
+rotation = -1.5708
+texture = ExtResource("3_xvkhi")
+stretch_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 117.0
+offset_top = 162.0
+offset_right = 134.0
+offset_bottom = 176.0
+texture = ExtResource("2_40fre")
+stretch_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect7"]
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 11.0
+offset_bottom = 8.0
+texture = ExtResource("3_xvkhi")
+stretch_mode = 2
+flip_h = true
+
+[node name="TextureRect8" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 98.0
+offset_top = 146.0
+offset_right = 115.0
+offset_bottom = 160.0
+texture = ExtResource("2_40fre")
+stretch_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect8"]
+offset_left = 11.0
+offset_top = 2.0
+offset_right = 17.0
+offset_bottom = 7.0
+rotation = 1.5708
+texture = ExtResource("3_xvkhi")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 52.0
+offset_top = 140.0
+offset_right = 92.0
+offset_bottom = 185.0
+text = "Movement:
+
+or"
+horizontal_alignment = 1
+
+[node name="TextureRect9" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 155.0
+offset_top = 163.0
+offset_right = 214.0
+offset_bottom = 177.0
+texture = ExtResource("4_tellv")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="TextureRect9"]
+offset_left = 13.0
+offset_top = 1.0
+offset_right = 45.0
+offset_bottom = 10.0
+text = "Spacebar"
+
+[node name="Label2" type="Label" parent="."]
+texture_filter = 1
+offset_left = 165.0
+offset_top = 140.0
+offset_right = 205.0
+offset_bottom = 185.0
+text = "Quack:"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+texture_filter = 1
+offset_left = 228.0
+offset_top = 131.0
+offset_right = 315.0
+offset_bottom = 176.0
+text = "Keep your light alive
+Relight the Shrines
+Make use of Cursed Items
+Save the world"
+horizontal_alignment = 1
