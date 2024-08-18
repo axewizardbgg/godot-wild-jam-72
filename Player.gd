@@ -16,12 +16,20 @@ var lightLevel: float = 1 # 0 to 1, used to determine the energy of our light
 var maxLight: float = 1 # Reduced by cursed items
 # The speed at which our light wanes
 var lightDecayRate: float = 0.02 # Per second
+var lightDecayModifier: float = 1 # Can be increased by shadowfiends
 # What items we currently have
 var items: Array = []
 # Keep track of which Shrine we last encountered
 var lastShrine: Node2D
+# Where we first encountered the last shrine, so we can respawn here if needed.
+var lastShrineEncounteredPos: Vector2 = global_position
 # Keep track of how many enemies we've spawned
 var raccoons: int = 0
+# Random flags for things we've encountered, so we can play wizard voice lines
+var vlRaccoon: bool = false
+var vlRaccoonBit: bool = false
+var vlShadowfiend: bool = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -130,6 +138,11 @@ func _adjustLight():
 			r.global_position = global_position + rPos
 			raccoons += 1
 			r.raccoonGone.connect(_raccoonGone)
+			# Is this the first raccoon we've spawned?
+			if !vlRaccoon:
+				# It is, play wizard voice line and set flag to true
+				AudioManager.playWizardSound("res://Sounds/WizardRaccoonWarning.ogg")
+				vlRaccoon = true
 	else:
 		# We should be playing Day theme, are we playing it already?
 		if AudioManager.currentlyPlaying != "day":
@@ -151,7 +164,7 @@ func _regen(delta: float):
 
 func _decay(delta: float):
 	# Decrease our lightLevel by our decayRate
-	lightLevel -= lightDecayRate * delta
+	lightLevel -= (lightDecayRate * lightDecayModifier) * delta
 	# Ensure we don't go below 0
 	if lightLevel <= 0:
 		lightLevel = 0
@@ -160,7 +173,10 @@ func _decay(delta: float):
 			# Consume the lighter to refill your light!
 			lightLevel = maxLight
 			items.erase("lighter")
-			# TODO: Sound effect for the lighter
+			# Play the sound effect of the lighter
+			$AudioStreamPlayer.stop()
+			$AudioStreamPlayer.stream = load("res://Sounds/torchlit.ogg")
+			$AudioStreamPlayer.play()
 	# Adjust the light
 	_adjustLight()
 
@@ -201,15 +217,24 @@ func pickUpItem(itemName: String):
 func takeDamage():
 	hp -= 1
 	if hp <= 0:
-		# TODO: Game over?
-		pass
+		# Game Over! Well not really, just restart at last shrine
+		AudioManager.playWizardSound("res://Sounds/WizardFail.ogg")
+		# Prepare the fail scene
+		var fail: Control = load("res://UI/Fail.tscn").instantiate()
+		fail.player = self
+		# Add it to our UI layer
+		get_tree().root.get_node("Main/CanvasUILayer").add_child(fail)
 	# Update our health bar
 	$HealthBar.value = float(hp)
 	# Set healthbar to be visible, and make a tween to fade it out
 	$HealthBar.modulate.a = 1
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property($HealthBar, "modulate", Color(1.0, 1.0, 1.0, 0.0), 1.5).set_ease(Tween.EASE_IN)
-	
+	# Is this the first time we got bit?
+	if !vlRaccoonBit:
+		# It is, play the wizard voice line
+		AudioManager.playWizardSound("res://Sounds/WizardDontForgetToDuck.ogg")
+		vlRaccoonBit = true
 
 # Auto-created functions from connecting signals in node inspector
 func _on_area_2d_area_entered(area: Area2D):
@@ -230,6 +255,7 @@ func _on_area_2d_area_entered(area: Area2D):
 		regen = true
 		# Mark this as the last shrine we visited
 		lastShrine = area.owner
+		lastShrineEncounteredPos = global_position
 		return
 	# Have we encountered an item?
 	if area.owner.is_in_group("items"):
@@ -243,6 +269,15 @@ func _on_area_2d_area_entered(area: Area2D):
 		pickUpItem(area.owner.itemName)
 		# Destroy the item
 		area.owner.queue_free()
+	# Are we encountering the void?
+	if area.owner.is_in_group("void"):
+		# We are! Incrase our light decay!
+		lightDecayModifier = 3
+		# Is this the first time we've encountered the void?
+		if !vlShadowfiend:
+			# It is, play the wizard voice line and set flag to true
+			AudioManager.playWizardSound("res://Sounds/WizardKeepYourDistance.ogg")
+			vlShadowfiend = true
 
 
 func _on_area_2d_area_exited(area: Area2D):
@@ -254,3 +289,7 @@ func _on_area_2d_area_exited(area: Area2D):
 	if area.owner.is_in_group("shrines"):
 		# We've left a shrine, stop regen and give in to the decay...
 		regen = false
+	# Have we encountered the void?
+	if area.owner.is_in_group("void"):
+		# We left the void, reset our light decay modifier
+		lightDecayModifier = 1

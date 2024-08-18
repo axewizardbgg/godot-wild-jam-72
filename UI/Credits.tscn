@@ -1,0 +1,162 @@
+[gd_scene load_steps=10 format=3 uid="uid://crvkr2lsmbda1"]
+
+[ext_resource type="Theme" uid="uid://djff630rr7c83" path="res://UI/Themes/HUD.tres" id="1_whsuj"]
+[ext_resource type="Script" path="res://UI/Credits.gd" id="2_4jmta"]
+[ext_resource type="Texture2D" uid="uid://u7ptjul4c21a" path="res://sprites/WhatTheDuck.png" id="3_xwx7w"]
+[ext_resource type="Texture2D" uid="uid://cfry2smi5h125" path="res://sprites/elvisQuacksly.png" id="4_tlmbl"]
+[ext_resource type="Texture2D" uid="uid://dyenechb22dug" path="res://sprites/ducktape.png" id="5_j1u3t"]
+[ext_resource type="Texture2D" uid="uid://cnqmvgc007bea" path="res://sprites/swordinthebone.png" id="6_d7cx1"]
+[ext_resource type="AudioStream" uid="uid://dboob235uni73" path="res://Sounds/IntroBGM.ogg" id="7_hp5t3"]
+
+[sub_resource type="Gradient" id="Gradient_n5oem"]
+colors = PackedColorArray(0, 0.136193, 0.145376, 1, 3.10443e-06, 0.425534, 0.316001, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h07uh"]
+gradient = SubResource("Gradient_n5oem")
+fill_from = Vector2(0, 1)
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_whsuj")
+script = ExtResource("2_4jmta")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_h07uh")
+
+[node name="ScrollingStuff" type="Control" parent="."]
+texture_filter = 1
+anchors_preset = 0
+offset_left = 30.0
+offset_top = 124.0
+offset_right = 290.0
+offset_bottom = 164.0
+
+[node name="Label" type="Label" parent="ScrollingStuff"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Thank you for playing \"Abduckted\"
+
+
+
+
+A Game by AxeWizard and his sons JokeMaster and Frug.
+
+Made for the 72nd Godot Wild Jam
+
+Theme: \"Light and Dark\"
+
+Other Wildcard themes we included:
+ - What the Duck? - 
+ - Curses -
+
+You can find the source code on my GitHub: 
+https://github.com/axewizardbgg/godot-wild-jam-72
+
+Keep an eye out for the Devlog on my YouTube channel:
+https://www.youtube.com/@axewizard
+
+Ideas, Concept, Story, and Design: JokeMaster, Frug, and AxeWizard
+
+Character and Item Art: JokeMaster
+
+
+
+
+Environmental Art: Frug
+
+
+
+
+ 
+
+Sound Effects: JokeMaster, Frug, AxeWizard
+
+Awesome Music Tracks : Necrobombicon
+
+Programming: AxeWizard
+
+Tools Used:
+- Operating System: Linux Mint 21.3 Cinnamon -
+- Engine: Godot 4.3 -
+- Art: Pixelorama v1.0.1 -
+- Audio: Audacity 2.4.2 -
+
+Other Resources used:
+- Water Shader: https://godotshaders.com/shader/cosine-water/ -
+- Shine Shader: https://godotshaders.com/shader/2d-shine-highlight/ -
+- Fog Shader: https://godotshaders.com/shader/2d-fog-overlay-2/ -
+
+
+
+
+OMG you're still here? You must be bored lol
+Thanks again for playing our game!"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="ScrollingStuff"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 14.0
+offset_right = 149.0
+offset_bottom = 54.0
+texture = ExtResource("3_xwx7w")
+
+[node name="TextureRect2" type="TextureRect" parent="ScrollingStuff"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 299.0
+offset_right = 128.0
+offset_bottom = 339.0
+texture = ExtResource("3_xwx7w")
+stretch_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ScrollingStuff/TextureRect2"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = -6.0
+offset_right = 59.0
+offset_bottom = 34.0
+texture = ExtResource("4_tlmbl")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="ScrollingStuff"]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 296.0
+offset_right = 178.0
+offset_bottom = 336.0
+texture = ExtResource("5_j1u3t")
+stretch_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="ScrollingStuff"]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 349.0
+offset_right = 163.0
+offset_bottom = 413.0
+texture = ExtResource("6_d7cx1")
+stretch_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_hp5t3")
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

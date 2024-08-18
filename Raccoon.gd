@@ -102,6 +102,7 @@ func _process(delta: float):
 		if player.items.has("duckTape"):
 			# They do, we're taped until our bite resets
 			taped = true
+			$Sprite2D.visible = true
 		# Deal damage to the player too!
 		player.takeDamage()
 		# Stop further execution
@@ -127,6 +128,7 @@ func _handleSpriteFlip(ang: float):
 func _resetBite():
 	bitten = false
 	taped = false
+	$Sprite2D.visible = false
 
 # Auto-genreated function from connecting signal in node window
 func _on_animated_sprite_2d_frame_changed():

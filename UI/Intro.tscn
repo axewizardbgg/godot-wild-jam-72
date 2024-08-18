@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://7qlvgock4fc4"]
+[gd_scene load_steps=11 format=3 uid="uid://7qlvgock4fc4"]
 
 [ext_resource type="Script" path="res://UI/Intro.gd" id="1_86wbi"]
 [ext_resource type="Texture2D" uid="uid://da276fumheebm" path="res://sprites/Wizard.png" id="2_8fe45"]
 [ext_resource type="Texture2D" uid="uid://u7ptjul4c21a" path="res://sprites/WhatTheDuck.png" id="3_wci1a"]
 [ext_resource type="Theme" uid="uid://djff630rr7c83" path="res://UI/Themes/HUD.tres" id="4_q0do0"]
 [ext_resource type="AudioStream" uid="uid://b0xwe1w6no42m" path="res://Sounds/WizardIntro.ogg" id="5_dl16d"]
+[ext_resource type="AudioStream" uid="uid://dboob235uni73" path="res://Sounds/IntroBGM.ogg" id="6_ha3j3"]
 
 [sub_resource type="Gradient" id="Gradient_irplh"]
 colors = PackedColorArray(9.02452e-09, 0.104955, 0.0896654, 1, 0.226707, 0.226708, 0.226707, 1)
@@ -22,7 +23,7 @@ gradient = SubResource("Gradient_5yj8g")
 width = 320
 height = 180
 fill = 1
-fill_from = Vector2(0.43578, 0.888889)
+fill_from = Vector2(0.454128, 0.921509)
 
 [node name="Intro" type="Control"]
 layout_mode = 3
@@ -54,19 +55,19 @@ stretch_mode = 4
 [node name="TextureRect3" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 122.0
-offset_top = 140.0
-offset_right = 162.0
+offset_left = 131.0
+offset_top = 152.0
+offset_right = 160.0
 offset_bottom = 180.0
 texture = ExtResource("3_wci1a")
 flip_h = true
 
 [node name="TextureRect" type="TextureRect" parent="TextureRect3"]
 layout_mode = 0
-offset_left = -122.0
-offset_top = -139.0
-offset_right = 198.0
-offset_bottom = 41.0
+offset_left = -131.0
+offset_top = -152.0
+offset_right = 189.0
+offset_bottom = 28.0
 texture = SubResource("GradientTexture2D_v6pl8")
 
 [node name="Label" type="Label" parent="."]
@@ -115,3 +116,8 @@ autowrap_mode = 2
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_dl16d")
 autoplay = true
+
+[node name="IntroBGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ha3j3")
+autoplay = true
+bus = &"BGM"

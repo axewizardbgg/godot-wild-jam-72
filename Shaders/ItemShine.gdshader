@@ -1,3 +1,5 @@
+// Lifted this from the comments of https://godotshaders.com/shader/2d-shine-highlight/
+
 shader_type canvas_item;
 
 

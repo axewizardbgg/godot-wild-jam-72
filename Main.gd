@@ -12,11 +12,20 @@ var shrinesLit: int = 0:
 		if shrinesLit > 0:
 			var sndPath: String = "res://Sounds/WizardShrineActivate%s.ogg" % shrinesLit
 			AudioManager.playWizardSound(sndPath)
+		# Was this our final shrine?
+		if shrinesLit == 8:
+			# It was! Fade to white and win!
+			var fade: Control = load("res://UI/FadeToWhite.tscn").instantiate()
+			$CanvasUILayer.add_child(fade)
+			var timer: SceneTreeTimer = get_tree().create_timer(5)
+			timer.timeout.connect(win)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Play the background music
 	AudioManager.playBGM()
+	# Connected death signal of player
+	# $Player.playerDied.connect(_playerDeath)
 	# Create some light bugs and add them to the scene around the player
 	var count: int = 0
 	while count < 5:
@@ -24,6 +33,13 @@ func _ready():
 		count += 1
 		
 	pass # Replace with function body.
+
+# Handle player death
+func _playerDeath():
+	# Prepare the fail scene
+	var fail: Control = load("res://UI/Fail.tscn").instantiate()
+	# Add it to our UI layer
+	$CanvasUILayer.add_child(fail)
 
 # Respawn light bug
 func _spawnLightBug():
@@ -52,3 +68,9 @@ func _on_player_item_acquired(item: String) -> void:
 	$CanvasUILayer.add_child(iUI)
 	# Pause the game
 	get_tree().paused = true
+
+func win():
+	var credits: Control = load("res://UI/Credits.tscn").instantiate()
+	get_tree().root.add_child(credits)
+	AudioManager.stopBGM()
+	queue_free()

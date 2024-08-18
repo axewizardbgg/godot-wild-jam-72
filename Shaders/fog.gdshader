@@ -1,3 +1,5 @@
+// Lifted this from https://godotshaders.com/shader/2d-fog-overlay-2/
+
 shader_type canvas_item;
 //render_mode unshaded; // optional
 

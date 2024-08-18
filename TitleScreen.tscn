@@ -206,4 +206,5 @@ bus = &"BGM"
 
 [connection signal="mouse_entered" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonCredits" to="." method="_on_button_credits_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/ButtonQuit" to="." method="_on_button_quit_pressed"]

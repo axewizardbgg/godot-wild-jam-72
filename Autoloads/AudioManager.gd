@@ -19,6 +19,10 @@ func _ready():
 # We start playing the background music when needed
 func playBGM():
 	$BGM1.play()
+	
+func stopBGM():
+	$BGM1.stop()
+	$BGM2.stop()
 
 # Crossfades the background music
 func crossfadeBGM(theme: String) -> void:

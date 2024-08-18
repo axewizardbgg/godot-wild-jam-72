@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqtgslpgtplhf"]
+
+[ext_resource type="Script" path="res://UI/Fail.gd" id="1_dj7lt"]
+[ext_resource type="Texture2D" uid="uid://c0taj1w7mscrn" path="res://sprites/vinesoverlay3.png" id="1_x1wml"]
+[ext_resource type="Theme" uid="uid://djff630rr7c83" path="res://UI/Themes/HUD.tres" id="2_sldqc"]
+
+[sub_resource type="Gradient" id="Gradient_vemv8"]
+colors = PackedColorArray(0.0547284, 3.37637e-05, 0.209925, 1, 5.41471e-08, 0.153204, 0.159252, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qv181"]
+gradient = SubResource("Gradient_vemv8")
+fill_from = Vector2(0, 1)
+
+[node name="Fail" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dj7lt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_qv181")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_x1wml")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(0.623613, 0, 0.0740794, 1)
+texture_filter = 1
+layout_mode = 0
+offset_left = 51.0
+offset_top = 63.0
+offset_right = 269.0
+offset_bottom = 123.0
+theme = ExtResource("2_sldqc")
+theme_override_font_sizes/font_size = 16
+text = "The world is lost to darkness...
+
+You have failed..."
+horizontal_alignment = 1

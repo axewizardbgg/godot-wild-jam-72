@@ -1,11 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://w5b76abuf51j"]
+[gd_scene load_steps=5 format=3 uid="uid://w5b76abuf51j"]
 
 [ext_resource type="Script" path="res://Classes/Tree.gd" id="1_l6nnm"]
-[ext_resource type="Shader" path="res://Shaders/ShadowFix.gdshader" id="2_1bi6l"]
 [ext_resource type="Texture2D" uid="uid://c0n8rx7bkyws4" path="res://sprites/bushshort.png" id="3_ldru0"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixumy"]
-shader = ExtResource("2_1bi6l")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3rlu"]
 size = Vector2(56, 46.5)
@@ -20,7 +16,6 @@ script = ExtResource("1_l6nnm")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 3
 texture_filter = 1
-material = SubResource("ShaderMaterial_ixumy")
 position = Vector2(1, -26)
 texture = ExtResource("3_ldru0")
 

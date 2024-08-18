@@ -1,0 +1,75 @@
+[gd_scene load_steps=16 format=3 uid="uid://dku8cyedslad0"]
+
+[ext_resource type="Script" path="res://Shadowfiend.gd" id="1_3kgsh"]
+[ext_resource type="Texture2D" uid="uid://dugujxkybtmgf" path="res://sprites/creepman.png" id="1_igko7"]
+[ext_resource type="Shader" path="res://Shaders/Distortion.gdshader" id="2_8lq6p"]
+[ext_resource type="Texture2D" uid="uid://bluyfafiunpp4" path="res://sprites/lightMask.png" id="3_pyvs4"]
+[ext_resource type="Texture2D" uid="uid://bhafb8unuy51r" path="res://sprites/smallLightMask.png" id="4_5vi6x"]
+
+[sub_resource type="Gradient" id="Gradient_rtuy1"]
+colors = PackedColorArray(0.000507959, 0.00200616, 0.00437194, 1, 0.23851, 0.0896866, 0.562337, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5m1vy"]
+gradient = SubResource("Gradient_rtuy1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cral2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4hk0t"]
+noise = SubResource("FastNoiseLite_cral2")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5w2oo"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t8d7x"]
+noise = SubResource("FastNoiseLite_5w2oo")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hf11t"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tsklk"]
+noise = SubResource("FastNoiseLite_hf11t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mf0o1"]
+shader = ExtResource("2_8lq6p")
+shader_parameter/flame1_texture = SubResource("NoiseTexture2D_4hk0t")
+shader_parameter/flame2_texture = SubResource("NoiseTexture2D_t8d7x")
+shader_parameter/flame3_texture = SubResource("NoiseTexture2D_tsklk")
+shader_parameter/color_gradient = SubResource("GradientTexture1D_5m1vy")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6swoy"]
+radius = 30.0
+
+[node name="Shadowfiend" type="Node2D"]
+script = ExtResource("1_3kgsh")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -32)
+texture = ExtResource("1_igko7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+material = SubResource("ShaderMaterial_mf0o1")
+position = Vector2(0, -32)
+texture = ExtResource("1_igko7")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -29)
+blend_mode = 1
+texture = ExtResource("3_pyvs4")
+texture_scale = 2.0
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(-4, -39)
+color = Color(0.914001, 0.125716, 0, 1)
+texture = ExtResource("4_5vi6x")
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(3, -40)
+color = Color(1, 0.610234, 0.447727, 1)
+texture = ExtResource("4_5vi6x")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -30)
+shape = SubResource("CircleShape2D_6swoy")

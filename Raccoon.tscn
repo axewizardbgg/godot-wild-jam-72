@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cfnrcmhbfjjov"]
+[gd_scene load_steps=13 format=3 uid="uid://cfnrcmhbfjjov"]
 
 [ext_resource type="Script" path="res://Raccoon.gd" id="1_u8jvf"]
 [ext_resource type="Texture2D" uid="uid://dfvxhyvur4ki7" path="res://sprites/racoon3.png" id="2_n4s51"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://crddspl6gk6su" path="res://Sounds/racoonspawn.ogg" id="4_maal6"]
 [ext_resource type="AudioStream" uid="uid://bmlxxsc616mka" path="res://Sounds/racoonattack.ogg" id="5_8skwx"]
 [ext_resource type="AudioStream" uid="uid://c63n25jqjkmvk" path="res://Sounds/bite.ogg" id="6_hafhe"]
+[ext_resource type="Texture2D" uid="uid://dagt35gw0tk2w" path="res://sprites/taped.png" id="7_7743f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sjf03"]
 atlas = ExtResource("2_n4s51")
@@ -65,5 +66,11 @@ stream = ExtResource("5_8skwx")
 
 [node name="SndBite" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_hafhe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(1, -10)
+texture = ExtResource("7_7743f")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

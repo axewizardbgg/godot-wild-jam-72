@@ -1,11 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cr13qdqwg6b4r"]
+[gd_scene load_steps=6 format=3 uid="uid://cr13qdqwg6b4r"]
 
 [ext_resource type="Script" path="res://Classes/Tree.gd" id="1_x6ln2"]
-[ext_resource type="Shader" path="res://Shaders/ShadowFix.gdshader" id="2_5kdct"]
 [ext_resource type="Texture2D" uid="uid://dp8lef3jimtr" path="res://sprites/leaflesstree.png" id="3_twivp"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixumy"]
-shader = ExtResource("2_5kdct")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3rlu"]
 size = Vector2(24, 51)
@@ -23,7 +19,6 @@ script = ExtResource("1_x6ln2")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 3
 texture_filter = 1
-material = SubResource("ShaderMaterial_ixumy")
 position = Vector2(0, -85)
 texture = ExtResource("3_twivp")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbgqxggxmi16g"]
+[gd_scene load_steps=16 format=3 uid="uid://dbgqxggxmi16g"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_1tdoc"]
 [ext_resource type="Texture2D" uid="uid://be0h5d8h0k3dp" path="res://sprites/roughmap2.png" id="2_fijix"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://w5b76abuf51j" path="res://Trees/Bush2.tscn" id="11_3r8wn"]
 [ext_resource type="PackedScene" uid="uid://bmh7hpqi67u2a" path="res://Trees/Bush3.tscn" id="12_dh0d4"]
 [ext_resource type="PackedScene" uid="uid://fo6pq87ue0c6" path="res://Pond.tscn" id="13_nhn20"]
+[ext_resource type="PackedScene" uid="uid://dku8cyedslad0" path="res://Shadowfiend.tscn" id="15_i4s5t"]
 
 [node name="Main" type="Node2D"]
 light_mask = 3
@@ -485,5 +486,23 @@ position = Vector2(756, 487)
 [node name="Tree131" parent="ForestStuff" instance=ExtResource("5_6rqor")]
 position = Vector2(143, 1868)
 flip = true
+
+[node name="Shadowfiend" parent="ForestStuff" instance=ExtResource("15_i4s5t")]
+position = Vector2(657, 1345)
+
+[node name="Shadowfiend2" parent="ForestStuff" instance=ExtResource("15_i4s5t")]
+position = Vector2(1131, 341)
+
+[node name="Shadowfiend3" parent="ForestStuff" instance=ExtResource("15_i4s5t")]
+position = Vector2(1413, 733)
+
+[node name="Shadowfiend4" parent="ForestStuff" instance=ExtResource("15_i4s5t")]
+position = Vector2(917, 1937)
+
+[node name="Shadowfiend5" parent="ForestStuff" instance=ExtResource("15_i4s5t")]
+position = Vector2(399, 733)
+
+[node name="Shadowfiend6" parent="ForestStuff" instance=ExtResource("15_i4s5t")]
+position = Vector2(1634, 883)
 
 [connection signal="itemAcquired" from="Player" to="." method="_on_player_item_acquired"]
